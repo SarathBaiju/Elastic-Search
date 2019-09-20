@@ -1,0 +1,17 @@
+﻿<script type="text/template" id="search-table">
+    <table class="table table-bordered" id="tblSearch">
+        <tr>
+            <td>Id</td>
+            <td>Name</td>
+            <td>Role</td>
+        </tr>
+        <% _.each(response,function(editor,i){ %>
+        <tr>
+            <td><%= editor.id %></td>
+            <td><%= editor.name %></td>
+            <td><%= editor.role %></td>
+        </tr>
+        <%  }); %>
+    </table>
+</script>
+    

@@ -1,0 +1,41 @@
+﻿@model IEnumerable<EsDemo.Models.Editor>
+@{
+    ViewBag.Title = "Index";
+}
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.9.1/underscore-min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="~/Scripts/Search.js"></script>
+<div class="wrapper">
+    <div class="header">
+        <h2>Search</h2>
+    </div>
+    <div class="body">
+        <input type="search" id="searchInput" class="form-control" placeholder="enter name to be search" />
+        <span id="searchclear" class="glyphicon glyphicon-remove-circle"></span>
+        <input type="button" id="searchBtn" class="btn btn-danger" value="Search" />
+        <div id="tblresult">
+            <table class="table table-bordered" id="tblSearch">
+                <br />
+                <tr>
+                    <td>Id</td>
+                    <td>Name</td>
+                    <td>Role</td>
+                </tr>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@item.id</td>
+                        <td>@item.name</td>
+                        <td>@item.role</td>
+                    </tr>
+                }
+            </table>
+        </div>
+        @section bodyTemplates{
+            <div id="divTemplates">
+                @Html.Partial("~/Views/Elastic/Templates/Templates.cshtml");
+            </div>
+        }
+    </div>
+</div>
