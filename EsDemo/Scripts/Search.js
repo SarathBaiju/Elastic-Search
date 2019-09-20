@@ -29,10 +29,26 @@ function bindEvents() {
         $("#tblSearch").remove();
         getAllEditorDatas();
     });
-    $(".fa-trash").on("click",function () {
-        var el = event.currentTarget;
-        console.log({el});
+    $(".fa-trash").on("click", function () {
+        var id = $(this).data('id');
+        if (id <= 0) { alert("Invalid data") }
+        else {
+            deleteEditorById(id);
+        }
     });
+}
+function deleteEditorById(id) {
+    $.ajax({
+        url: localhost + "delete/" + id,
+        type: 'post',
+    }).done(function (response) {
+        if (response) {
+            ReloadToHomePage();
+        }
+    });
+}
+function ReloadToHomePage() {
+    $.get("http://localhost:52885/");
 }
 function getAllEditorDatas() {
     $.ajax({
@@ -75,7 +91,7 @@ function noDataFound() {
     alert("Data is not found");
 }
 function generateHtml(response) {
-     bindTemplate('search-table', { response: response });
+    bindTemplate('search-table', { response: response });
 }
 
 function bindTemplate(templateId, jsonData) {

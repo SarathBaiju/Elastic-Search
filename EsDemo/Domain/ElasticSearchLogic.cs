@@ -1,5 +1,6 @@
 ﻿using EsDemo.Connector;
 using EsDemo.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -28,7 +29,7 @@ namespace EsDemo.Domain
         }
         public long GetCount(string searchQuery)
         {
-            var count = _esConnector.EsClient.Count<Editor>(s => s.Type("first").Query(qr => qr.Match(e => e.Field(ed=> ed.name).Query(searchQuery))));
+            var count = _esConnector.EsClient.Count<Editor>(s => s.Type("first").Query(qr => qr.Match(e => e.Field(ed => ed.name).Query(searchQuery))));
             return count.Count;
         }
         public List<Editor> GetDataBySearchQuery(string searchQuery)
@@ -37,7 +38,19 @@ namespace EsDemo.Domain
             List<Editor> response = data.Hits.Select(s => s.Source).ToList();
             return response;
         }
-        
+        public bool DeleteDataById(string id)
+        {
+            try
+            {
+                var x = _esConnector.EsClient.DeleteByQuery<Editor>(s => s.Type("first").Query(qr => qr.Match(e => e.Field(ed => ed.id).Query(id))));
+                return true;
+            }catch(Exception ex)
+            {
+                return false;
+            }
+            
+        }
+
     }
-   
+
 }
