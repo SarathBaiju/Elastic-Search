@@ -11,7 +11,7 @@ namespace EsDemo.Controllers
         [HttpGet]
         public ActionResult Index()
         {
-            long count = _elasticSearchLogic.GetCount();
+            long count = _elasticSearchLogic.GetTotalCount();
             if (count < 1)
             {
                 return View("~/Views/Elastic/NotFound.cshtml");

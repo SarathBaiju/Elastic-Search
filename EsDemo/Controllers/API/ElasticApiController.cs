@@ -17,18 +17,18 @@ namespace EsDemo.Controllers.API
         {
             return _elasticSearchLogic.GetCount(searchQuery);
         }
-
-        [HttpPost]
-        [Route("get")]
-        public List<Editor> Get(string searchQuery)
-        {
-            return _elasticSearchLogic.Get(searchQuery);
-        }
         [HttpGet]
         [Route("get-all")]
         public List<Editor> GetAll()
         {
             return _elasticSearchLogic.GetAll();
         }
-    }
+        [HttpPost]
+        [Route("get")]
+        public List<Editor> GetBySearchQuery(string searchQuery)
+        {
+            return _elasticSearchLogic.GetDataBySearchQuery(searchQuery);
         }
+        
+    }
+}

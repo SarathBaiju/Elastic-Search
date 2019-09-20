@@ -8,9 +8,17 @@ namespace EsDemo.Domain
     public class ElasticSearchLogic
     {
         private readonly EsConnector _esConnector = new EsConnector();
-        public long GetCount()
+
+        public long GetTotalCount()
         {
             return _esConnector.EsClient.Count<Editor>(s => s.Type("first").Query(qs => qs.MatchAll())).Count;
+        }
+        public List<Editor> GetAll()
+        {
+            long count = this.GetTotalCount();
+            if (count > 0)
+                return this.GetDatas(count);
+            else return null;
         }
         public List<Editor> GetDatas(long take)
         {
@@ -23,19 +31,13 @@ namespace EsDemo.Domain
             var count = _esConnector.EsClient.Count<Editor>(s => s.Type("first").Query(qr => qr.Match(e => e.Field(ed=> ed.name).Query(searchQuery))));
             return count.Count;
         }
-        public List<Editor> Get(string searchQuery)
+        public List<Editor> GetDataBySearchQuery(string searchQuery)
         {
             var data = _esConnector.EsClient.Search<Editor>(s => s.Type("first").Query(qr => qr.Match(e => e.Field(ed => ed.name).Query(searchQuery))));
             List<Editor> response = data.Hits.Select(s => s.Source).ToList();
             return response;
         }
-        public List<Editor> GetAll()
-        {
-            long count = this.GetCount();
-            if (count > 0)
-                return this.GetDatas(count);
-            else return null;
-        }
+        
     }
    
 }

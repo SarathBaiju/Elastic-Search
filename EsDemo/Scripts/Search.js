@@ -29,6 +29,10 @@ function bindEvents() {
         $("#tblSearch").remove();
         getAllEditorDatas();
     });
+    $(".fa-trash").on("click",function () {
+        var el = event.currentTarget;
+        console.log({el});
+    });
 }
 function getAllEditorDatas() {
     $.ajax({
