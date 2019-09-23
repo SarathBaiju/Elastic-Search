@@ -48,7 +48,8 @@ function deleteEditorById(id) {
     });
 }
 function ReloadToHomePage() {
-    $.get("http://localhost:52885/");
+    $("#tblSearch").remove();
+    getAllEditorDatas();
 }
 function getAllEditorDatas() {
     $.ajax({

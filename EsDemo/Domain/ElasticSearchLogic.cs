@@ -25,7 +25,7 @@ namespace EsDemo.Domain
         {
             var data = _esConnector.EsClient.Search<Editor>(req => req.Type("first").Take((int)take).Query(query => query.MatchAll()));
             var response = data.Hits.Select(s => s.Source).ToList();
-            return response;
+            return response.OrderBy(e => e.id).ToList();
         }
         public long GetCount(string searchQuery)
         {
