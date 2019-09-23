@@ -62,3 +62,6 @@ textarea {
 .modal-body.in .name, .modal-body.in .role{
     display: block;
 }
+.modal-content.in{
+    margin-top:215px;
+}

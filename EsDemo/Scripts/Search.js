@@ -40,6 +40,13 @@ function bindEvents() {
         var id = $(this).data('id');
         var data = getEditorDataById(id);
     });
+    $("#editCancel").on("click", function () {
+        $(".popup-edit div").css("display", "none");
+        ClearInputFields();
+    });
+}
+function ClearInputFields() {
+    $('input[type=text]').remove();
 }
 function getEditorDataById(id) {
     $.ajax({
@@ -63,11 +70,14 @@ function generateEditPopup(editorData) {
     var bodyName = document.createElement('input');
     var bodyRole = document.createElement('input');
     bodyName.type = "text";
-    bodyName.setAttribute("value",editorData.name);
-    bodyRole.setAttribute("value",editorData.role);
+    bodyRole.type = "text";    
+    bodyName.setAttribute("value", editorData.name);
+    bodyRole.setAttribute("value", editorData.role);
     $(".modal-header.in").html(heading);
     $(".modal-body.in .name").append(bodyName);
     $(".modal-body.in .role").append(bodyRole);
+    $('input[type=text]').addClass('form-control');
+    $("a").setAttribute("data-id", editorData.id);
 }
 function deleteEditorById(id) {
     $.ajax({
