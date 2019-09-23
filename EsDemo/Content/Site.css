@@ -55,3 +55,10 @@ textarea {
 #tblSearch{
     background-color:azure;
 }
+.glyphicon {
+    position: relative;
+    margin-left: 10px;
+}
+.modal-body.in .name, .modal-body.in .role{
+    display: block;
+}

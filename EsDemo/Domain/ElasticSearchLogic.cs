@@ -24,8 +24,7 @@ namespace EsDemo.Domain
         public List<Editor> GetDatas(long take)
         {
             var data = _esConnector.EsClient.Search<Editor>(req => req.Type("first").Take((int)take).Query(query => query.MatchAll()));
-            var response = data.Hits.Select(s => s.Source).ToList();
-            return response.OrderBy(e => e.id).ToList();
+            return data.Documents.OrderBy(e => e.id).ToList();
         }
         public long GetCount(string searchQuery)
         {
@@ -35,8 +34,7 @@ namespace EsDemo.Domain
         public List<Editor> GetDataBySearchQuery(string searchQuery)
         {
             var data = _esConnector.EsClient.Search<Editor>(s => s.Type("first").Query(qr => qr.Match(e => e.Field(ed => ed.name).Query(searchQuery))));
-            List<Editor> response = data.Hits.Select(s => s.Source).ToList();
-            return response;
+            return data.Documents.ToList();
         }
         public bool DeleteDataById(string id)
         {
@@ -44,13 +42,25 @@ namespace EsDemo.Domain
             {
                 var x = _esConnector.EsClient.DeleteByQuery<Editor>(s => s.Type("first").Query(qr => qr.Match(e => e.Field(ed => ed.id).Query(id))));
                 return true;
-            }catch(Exception ex)
+            }
+            catch (Exception ex)
             {
                 return false;
             }
-            
         }
-
+        public Editor GetEditorById(string id)
+        {
+            var data = _esConnector.EsClient.Search<Editor>(req => req
+            .Type("first")
+            .Query(qu => qu
+                .Match(mat =>mat.
+                    Field(e => e.id)
+                        .Query(id))
+                )
+            );
+            var document = data.Documents.ToList<Editor>().FirstOrDefault();
+            return document;
+        }
     }
 
 }

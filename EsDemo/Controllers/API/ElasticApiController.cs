@@ -35,5 +35,11 @@ namespace EsDemo.Controllers.API
         {
             return _elasticSearchLogic.DeleteDataById(id);
         }
+        [HttpGet]
+        [Route("get/{id}")]
+        public Editor GetEditorById(string id)
+        {
+            return _elasticSearchLogic.GetEditorById(id);
+        }
     }
 }

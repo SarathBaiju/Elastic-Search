@@ -27,11 +27,31 @@
                     <tr>
                         <td>@item.id</td>
                         <td>@item.name</td>
-                        <td>@item.role   <i class="fa fa-trash" data-id="@item.id"></i></td>
+                        <td>@item.role   <i class="fa fa-trash" data-id="@item.id"></i>  <span class="glyphicon glyphicon-edit" data-id="@item.id"  ></span></td>
                     </tr>
                 }
             </table>
-        </div>
+            <div class="popup-edit">
+                <div class="modal fade" id="confirm-delete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="false">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+
+                            </div>
+                            <div class="modal-body">
+                                <span class="name"><label>Name :</label> </span>
+                                <span class="role"> <label>Role :</label> </span>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                                <a class="btn btn-danger btn-ok">Edit</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            </div>
+           
         @section bodyTemplates{
             <div id="divTemplates">
                 @Html.Partial("~/Views/Elastic/Templates/Templates.cshtml");

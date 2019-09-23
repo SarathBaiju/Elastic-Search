@@ -9,7 +9,7 @@
         <tr>
             <td><%= editor.id %></td>
             <td><%= editor.name %></td>
-            <td><%= editor.role %> <i class="fa fa-trash" data-id="<%= editor.id %>"></i></td>
+            <td><%= editor.role %> <i class="fa fa-trash" data-id="<%= editor.id %>"></i><span class="glyphicon glyphicon-edit" data-id="<%=editor.id %>"></span></td>
         </tr>
         <%  }); %>
     </table>

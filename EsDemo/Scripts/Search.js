@@ -36,6 +36,38 @@ function bindEvents() {
             deleteEditorById(id);
         }
     });
+    $(".glyphicon-edit").on("click", function () {
+        var id = $(this).data('id');
+        var data = getEditorDataById(id);
+    });
+}
+function getEditorDataById(id) {
+    $.ajax({
+        url: localhost + "get/" + id,
+        type: 'get'
+    }).done(function (response) {
+        if (response == null) {
+            alert("Null data");
+        } else {
+            OpenPopup(response);
+        }
+    });
+}
+function OpenPopup(editorData) {
+    generateEditPopup(editorData);
+}
+function generateEditPopup(editorData) {
+    $(".popup-edit div").addClass("in");
+    $(".popup-edit div").css("display", "block");
+    var heading = "Editor Change";
+    var bodyName = document.createElement('input');
+    var bodyRole = document.createElement('input');
+    bodyName.type = "text";
+    bodyName.setAttribute("value",editorData.name);
+    bodyRole.setAttribute("value",editorData.role);
+    $(".modal-header.in").html(heading);
+    $(".modal-body.in .name").append(bodyName);
+    $(".modal-body.in .role").append(bodyRole);
 }
 function deleteEditorById(id) {
     $.ajax({
